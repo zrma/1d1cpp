@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(src)
 
-set(SOURCE_FILES main.cpp pch.h type_traits.h)
+set(SOURCE_FILES main.cpp pch.h type_traits.h hacker_rank/introduction.cpp hacker_rank/introduction.h)
 add_executable(1d1cpp ${SOURCE_FILES})
 
 set(Boost_USE_STATIC_LIBS OFF) # enable dynamic linking
