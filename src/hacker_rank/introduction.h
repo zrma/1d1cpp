@@ -11,6 +11,8 @@ void hello_world();
 
 void input_and_output(const std::vector<int> &arr);
 
-void conditional_statements(const int n);
+void conditional_statements(int n);
+
+void basic_data_types(int n, long l, char c, float f, double d);
 
 #endif //INC_1D1CPP_INTRODUCTION_H

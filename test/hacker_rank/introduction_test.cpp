@@ -37,3 +37,11 @@ TEST(conditional_statements, test_eq) {
     output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "Greater than 9");
 }
+
+// https://www.hackerrank.com/challenges/c-tutorial-basic-data-types/problem
+TEST(basic_data_types, test_eq) {
+    testing::internal::CaptureStdout();
+    basic_data_types(3, 12345678912345, 'a', 334.23, 14049.30493);
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "3\n12345678912345\na\n334.230\n14049.304930000");
+}
