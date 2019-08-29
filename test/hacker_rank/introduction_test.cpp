@@ -10,7 +10,7 @@
 TEST(hello_world, test_eq) {
     testing::internal::CaptureStdout();
     hello_world();
-    std::string output = testing::internal::GetCapturedStdout();
+    auto output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "Hello, World!");
 }
 
@@ -18,6 +18,22 @@ TEST(hello_world, test_eq) {
 TEST(input_and_output, test_eq) {
     testing::internal::CaptureStdout();
     input_and_output({1, 2, 7});
-    std::string output = testing::internal::GetCapturedStdout();
+    auto output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "10");
+}
+
+// https://www.hackerrank.com/challenges/c-tutorial-conditional-if-else/problem
+TEST(conditional_statements, test_eq) {
+    testing::internal::CaptureStdout();
+    conditional_statements(5);
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "five");
+
+    conditional_statements(8);
+    output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "eight");
+
+    conditional_statements(44);
+    output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "Greater than 9");
 }
