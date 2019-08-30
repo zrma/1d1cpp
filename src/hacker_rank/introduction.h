@@ -15,4 +15,6 @@ void conditional_statements(int n);
 
 void basic_data_types(int n, long l, char c, float f, double d);
 
+void for_loop(int a, int b);
+
 #endif //INC_1D1CPP_INTRODUCTION_H

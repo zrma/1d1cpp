@@ -29,10 +29,12 @@ TEST(conditional_statements, test_eq) {
     auto output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "five");
 
+    testing::internal::CaptureStdout();
     conditional_statements(8);
     output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "eight");
 
+    testing::internal::CaptureStdout();
     conditional_statements(44);
     output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "Greater than 9");
@@ -44,4 +46,17 @@ TEST(basic_data_types, test_eq) {
     basic_data_types(3, 12345678912345, 'a', 334.23, 14049.30493);
     auto output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "3\n12345678912345\na\n334.230\n14049.304930000");
+}
+
+// https://www.hackerrank.com/challenges/c-tutorial-for-loop/problem
+TEST(for_loop, test_eq) {
+    testing::internal::CaptureStdout();
+    for_loop(8, 11);
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "eight\nnine\neven\nodd\n");
+
+    testing::internal::CaptureStdout();
+    for_loop(3, 15);
+    output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "three\nfour\nfive\nsix\nseven\neight\nnine\neven\nodd\neven\nodd\neven\nodd\n");
 }
