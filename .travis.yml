@@ -14,7 +14,7 @@ before_install:
   - chmod +x ./test.sh
 
 before_script:
-  - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev
+  - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev valgrind
 
 script:
   - export CC=gcc-7
