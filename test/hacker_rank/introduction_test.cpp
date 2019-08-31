@@ -75,3 +75,12 @@ TEST(update, test_eq) {
     EXPECT_EQ(a, a + b);
     EXPECT_EQ(b, std::abs(a - b));
 }
+
+// https://www.hackerrank.com/challenges/arrays-introduction/problem
+TEST(arrays_introduction, test_eq) {
+    testing::internal::CaptureStdout();
+    arrays_introduction({1, 4, 3, 2});
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "2 3 4 1 ");
+
+}

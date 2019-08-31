@@ -61,3 +61,10 @@ void update(int *a, int *b) {
     *b = std::abs(temp_a - temp_b);
 }
 
+void arrays_introduction(std::initializer_list<int> list) {
+    std::vector<int> vec{list};
+    std::for_each(vec.rbegin(), vec.rend(), [](const int &n) {
+        std::cout << n << " ";
+    });
+}
+

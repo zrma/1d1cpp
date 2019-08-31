@@ -19,6 +19,8 @@ void for_loop(int a, int b);
 
 int max_of_four(int a, int b, int c, int d);
 
-void update(int *a,int *b);
+void update(int *a, int *b);
+
+void arrays_introduction(std::initializer_list<int> list);
 
 #endif //INC_1D1CPP_INTRODUCTION_H
