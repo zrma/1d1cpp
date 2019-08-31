@@ -19,4 +19,6 @@ void for_loop(int a, int b);
 
 int max_of_four(int a, int b, int c, int d);
 
+void update(int *a,int *b);
+
 #endif //INC_1D1CPP_INTRODUCTION_H

@@ -52,3 +52,12 @@ void for_loop(int a, int b) {
 int max_of_four(int a, int b, int c, int d) {
     return std::max({a, b, c, d});
 }
+
+void update(int *a, int *b) {
+    auto temp_a = *a;
+    auto temp_b = *b;
+
+    *a = temp_a + temp_b;
+    *b = std::abs(temp_a - temp_b);
+}
+

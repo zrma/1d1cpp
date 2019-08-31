@@ -67,3 +67,11 @@ TEST(max_of_four, test_eq) {
     EXPECT_EQ(max_of_four(-1, -2, -5, -3), -1);
     EXPECT_EQ(max_of_four(0, -2, -5, 3), 3);
 }
+
+// https://www.hackerrank.com/challenges/c-tutorial-pointer/problem
+TEST(update, test_eq) {
+    auto a = 0, b = 0;
+    update(&a, &b);
+    EXPECT_EQ(a, a + b);
+    EXPECT_EQ(b, std::abs(a - b));
+}
