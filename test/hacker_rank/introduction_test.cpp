@@ -60,3 +60,10 @@ TEST(for_loop, test_eq) {
     output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "three\nfour\nfive\nsix\nseven\neight\nnine\neven\nodd\neven\nodd\neven\nodd\n");
 }
+
+// https://www.hackerrank.com/challenges/c-tutorial-functions/problem
+TEST(max_of_four, test_eq) {
+    EXPECT_EQ(max_of_four(3, 4, 6, 5), 6);
+    EXPECT_EQ(max_of_four(-1, -2, -5, -3), -1);
+    EXPECT_EQ(max_of_four(0, -2, -5, 3), 3);
+}

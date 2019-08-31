@@ -48,3 +48,7 @@ void for_loop(int a, int b) {
         std::cout << even_odd[n % 2] << std::endl;
     });
 }
+
+int max_of_four(int a, int b, int c, int d) {
+    return std::max({a, b, c, d});
+}
