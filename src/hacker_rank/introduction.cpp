@@ -3,7 +3,6 @@
 //
 
 #include <algorithm>
-#include <array>
 #include <iostream>
 #include <numeric>
 #include <string>
@@ -66,5 +65,17 @@ void arrays_introduction(std::initializer_list<int> list) {
     std::for_each(vec.rbegin(), vec.rend(), [](const int &n) {
         std::cout << n << " ";
     });
+}
+
+std::vector<int> variables_sized_arrays(
+        const std::vector<std::vector<int>> &arr,
+        const std::vector<std::tuple<int, int>> &query
+) {
+    auto result = std::vector<int>();
+    std::for_each(query.begin(), query.end(), [&](const std::tuple<int, int> &q) {
+        const auto[idx1, idx2] = q;
+        result.push_back(arr[idx1][idx2]);
+    });
+    return result;
 }
 

@@ -6,6 +6,8 @@
 #define INC_1D1CPP_INTRODUCTION_H
 
 #include <vector>
+#include <list>
+#include <tuple>
 
 void hello_world();
 
@@ -23,4 +25,9 @@ void update(int *a, int *b);
 
 void arrays_introduction(std::initializer_list<int> list);
 
-#endif //INC_1D1CPP_INTRODUCTION_H
+std::vector<int> variables_sized_arrays(
+        const std::vector<std::vector<int>> &arr,
+        const std::vector<std::tuple<int, int>> &query
+);
+
+#endif //INC_1D1C&PP_INTRODUCTION_H

@@ -82,5 +82,14 @@ TEST(arrays_introduction, test_eq) {
     arrays_introduction({1, 4, 3, 2});
     auto output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "2 3 4 1 ");
+}
 
+// https://www.hackerrank.com/challenges/variable-sized-arrays/problem
+TEST(variables_sized_arrays, test_eq) {
+    auto actual = variables_sized_arrays(
+            {std::vector<int>{1, 5, 4}, std::vector<int>{1, 2, 8, 9, 3}},
+            {std::tuple{0, 1}, {std::tuple{1, 3}}}
+    );
+    auto expected = std::vector{5, 9};
+    EXPECT_EQ(actual, expected);
 }
