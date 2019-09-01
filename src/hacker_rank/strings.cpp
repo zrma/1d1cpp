@@ -85,9 +85,7 @@ std::string Attribute::Query(std::string q) {
 }
 
 AttrWeakPtr Attribute::AddChild(const AttrWeakPtr &parent, const std::string &s) {
-    const auto result = parse(s);
-    const auto &name = std::get<0>(result);
-    pair_map p = std::get<1>(result);
+    const auto&[name, p] = parse(s);
     const auto node = std::make_shared<Attribute>(parent, name, p);
     this->m_Child[name] = node;
 
