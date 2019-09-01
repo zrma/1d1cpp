@@ -36,16 +36,13 @@ void basic_data_types(int n, long l, char c, float f, double d) {
 const auto even_odd = std::array{"even", "odd"};
 
 void for_loop(int a, int b) {
-    std::vector<decltype(a)> arr(b - a + 1);
-    std::iota(arr.begin(), arr.end(), a);
-
-    std::for_each(arr.begin(), arr.end(), [](const int &n) {
-        if (n < num_label.size()) {
-            std::cout << num_label[n] << std::endl;
-            return;
+    for (auto i = a; i <= b; i++) {
+        if (i < num_label.size()) {
+            std::cout << num_label[i] << std::endl;
+            continue;
         }
-        std::cout << even_odd[n % 2] << std::endl;
-    });
+        std::cout << even_odd[i % 2] << std::endl;
+    }
 }
 
 int max_of_four(int a, int b, int c, int d) {
