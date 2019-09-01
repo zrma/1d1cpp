@@ -27,3 +27,31 @@ TEST(strings, test_eq) {
     auto output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "4 2\nabcdef\nebcd af\n");
 }
+
+// https://www.hackerrank.com/challenges/attribute-parser/problem
+TEST(attribute_parser, test_eq) {
+    testing::internal::CaptureStdout();
+    attribute_parser({
+                             "<tag1 value = \"HelloWorld\">",
+                             "<tag2 name = \"Name1\">",
+                             "</tag2>",
+                             "</tag1>"
+                     }, {
+                             "tag1.tag2~name",
+                             "tag1~name",
+                             "tag1~value"
+                     });
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "Name1\nNot Found!\nHelloWorld\n");
+}
+
+TEST(parse, test_eq) {
+    EXPECT_EQ(parse("<tag1 name = \"Name1\" value = \"HelloWorld\">"),
+              std::make_tuple(
+                      "tag1",
+                      pair_map{
+                              std::make_pair("name", "Name1"),
+                              std::make_pair("value", "HelloWorld"),
+                      }
+              ));
+}
