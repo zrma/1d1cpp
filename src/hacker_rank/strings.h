@@ -5,7 +5,6 @@
 #ifndef INC_1D1CPP_STRINGS_H
 #define INC_1D1CPP_STRINGS_H
 
-#include <list>
 #include <map>
 #include <memory>
 #include <string>
@@ -56,6 +55,6 @@ private:
     AttrWeakPtr m_Parent;
 };
 
-void attribute_parser(std::list<std::string> ss, const std::vector<std::string> &query);
+void attribute_parser(std::vector<std::string> ss, const std::vector<std::string> &query);
 
 #endif //INC_1D1CPP_STRINGS_H

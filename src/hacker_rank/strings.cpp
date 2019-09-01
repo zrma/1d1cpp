@@ -96,7 +96,7 @@ AttrWeakPtr Attribute::GetParent() const {
     return this->m_Parent;
 }
 
-void attribute_parser(std::list<std::string> ss, const std::vector<std::string> &query) {
+void attribute_parser(std::vector<std::string> ss, const std::vector<std::string> &query) {
     if (query.empty()) {
         return;
     }
