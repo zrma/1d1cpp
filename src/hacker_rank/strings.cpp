@@ -59,7 +59,7 @@ std::string Attribute::Query(std::string q) {
   q = q.substr(this->m_Name.size(), q.size() - this->m_Name.size());
   if (q.c_str()[0] == attrs_delimiter) {
     q = q.substr(1, q.size() - 1);
-    if (this->m_Attr.find(q) == m_Attr.end()) {
+    if (this->m_Attr.find(q) == this->m_Attr.end()) {
       return null_str;
     }
     return this->m_Attr[q];
@@ -67,7 +67,7 @@ std::string Attribute::Query(std::string q) {
 
   const auto get_from_child = [&](auto pos) -> std::string {
     const auto child = q.substr(0, pos);
-    if (this->m_Child.find(child) == m_Child.end()) {
+    if (this->m_Child.find(child) == this->m_Child.end()) {
       return null_str;
     }
     return this->m_Child[child]->Query(q);
