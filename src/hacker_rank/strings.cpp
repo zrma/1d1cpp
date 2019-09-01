@@ -106,13 +106,13 @@ void attribute_parser(std::vector<std::string> ss, const std::vector<std::string
     if (s.empty()) {
       return;
     }
-    
+
     auto spt = pick.lock();
     if (!spt) {
       std::cerr << "pick is expired" << std::endl;
       return;
     }
-    
+
     if (s.c_str()[1] == '/') {
       pick = spt->GetParent();
       return;
@@ -120,7 +120,7 @@ void attribute_parser(std::vector<std::string> ss, const std::vector<std::string
     pick = spt->AddChild(spt, s);
   });
 
-  std::for_each(query.begin(), query.end(), [&](const std::string &s) {
+  std::for_each(query.begin(), query.end(), [=](const std::string &s) {
     if (s.empty()) {
       return;
     }
