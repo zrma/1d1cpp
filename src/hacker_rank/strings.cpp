@@ -31,7 +31,7 @@ void strings(const std::string &s1, const std::string &s2) {
 }
 
 std::tuple<std::string, pair_map> parse(std::string str) {
-  // 앞 뒤 < > 제거
+  // remove < >
   str = str.substr(1, str.size() - 2);
   std::string name, key, value, tmp;
 
@@ -41,6 +41,7 @@ std::tuple<std::string, pair_map> parse(std::string str) {
 
   auto result = pair_map();
   while (ss >> key >> tmp >> value) {
+    // remove " "
     result[key] = value.substr(1, value.size() - 2);
   }
   return std::make_tuple(name, result);
@@ -71,7 +72,8 @@ std::string Attribute::Query(std::string q) {
     }
     return this->m_Child[child]->Query(q);
   };
-
+  
+  // remove delimiter
   q = q.substr(1);
   auto pos = q.find(child_delimiter);
   if (pos == std::string::npos) {
@@ -87,7 +89,6 @@ AttrWeakPtr Attribute::AddChild(const AttrWeakPtr &parent, const std::string &s)
   const auto&[name, p] = parse(s);
   const auto node = std::make_shared<Attribute>(parent, name, p);
   this->m_Child[name] = node;
-
   return node;
 }
 
@@ -113,10 +114,12 @@ void attribute_parser(std::vector<std::string> ss, const std::vector<std::string
       return;
     }
 
+    // close entry: </tag####>
     if (s.c_str()[1] == '/') {
       pick = spt->GetParent();
       return;
     }
+    // open entry: <tag#### key1 = value1 key2 = value2 ... = ...>
     pick = spt->AddChild(spt, s);
   });
 
