@@ -43,7 +43,6 @@ std::tuple<std::string, pair_map> parse(std::string str) {
   while (ss >> key >> tmp >> value) {
     result[key] = value.substr(1, value.size() - 2);
   }
-
   return std::make_tuple(name, result);
 }
 
@@ -80,7 +79,6 @@ std::string Attribute::Query(std::string q) {
     if (pos == std::string::npos) {
       return null_str;
     }
-    return get_from_child(pos);
   }
   return get_from_child(pos);
 }
@@ -108,15 +106,18 @@ void attribute_parser(std::vector<std::string> ss, const std::vector<std::string
     if (s.empty()) {
       return;
     }
-    if (auto spt = pick.lock()) {
-      if (s.c_str()[1] == '/') {
-        pick = spt->GetParent();
-        return;
-      }
-      pick = spt->AddChild(spt, s);
+    
+    auto spt = pick.lock();
+    if (!spt) {
+      std::cerr << "pick is expired" << std::endl;
       return;
     }
-    std::cerr << "pick is expired" << std::endl;
+    
+    if (s.c_str()[1] == '/') {
+      pick = spt->GetParent();
+      return;
+    }
+    pick = spt->AddChild(spt, s);
   });
 
   std::for_each(query.begin(), query.end(), [&](const std::string &s) {
