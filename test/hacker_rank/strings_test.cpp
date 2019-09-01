@@ -19,3 +19,11 @@ TEST(parse_int, test_eq) {
         EXPECT_EQ(actual, expected);
     }
 }
+
+// https://www.hackerrank.com/challenges/c-tutorial-strings/problem
+TEST(strings, test_eq) {
+    testing::internal::CaptureStdout();
+    strings("abcd", "ef");
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "4 2\nabcdef\nebcd af\n");
+}

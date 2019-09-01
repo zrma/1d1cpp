@@ -2,6 +2,7 @@
 // Created by zrma on 2019-08-31.
 //
 
+#include <iostream>
 #include "strings.h"
 
 std::vector<int> parse_int(const std::string &str) {
@@ -16,4 +17,12 @@ std::vector<int> parse_int(const std::string &str) {
         start += token.size() + delimiter.length();
     }
     return result;
+}
+
+void strings(const std::string &s1, const std::string &s2) {
+    std::cout << s1.size() << " " << s2.size() << std::endl;
+
+    std::cout << s1 << s2 << std::endl;
+    std::cout << s2.c_str()[0] << s1.substr(1, s1.size() - 1) << " "
+              << s1.c_str()[0] << s2.substr(1, s2.size() - 1) << std::endl;
 }

@@ -10,4 +10,6 @@
 
 std::vector<int> parse_int(const std::string &str);
 
+void strings(const std::string &s1, const std::string &s2);
+
 #endif //INC_1D1CPP_STRINGS_H
