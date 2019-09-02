@@ -30,7 +30,7 @@ void strings(const std::string &s1, const std::string &s2) {
             << s1.c_str()[0] << s2.substr(1, s2.size() - 1) << std::endl;
 }
 
-std::tuple<std::string, pair_map> parse(std::string str) {
+std::tuple<std::string, pair_map> parse_attr(std::string str) {
   // remove < >
   str = str.substr(1, str.size() - 2);
   std::string name, key, value, tmp;
@@ -47,52 +47,64 @@ std::tuple<std::string, pair_map> parse(std::string str) {
   return std::make_tuple(name, result);
 }
 
-std::string Attribute::Query(std::string q) {
-  constexpr auto null_str = "";
-  if (q.substr(0, this->m_Name.size()) != this->m_Name) {
-    return null_str;
-  }
-
+std::tuple<std::string, std::list<std::string>> parse_query(std::string str) {
+  constexpr auto nil = "";
   constexpr auto child_delimiter = '.';
   constexpr auto attrs_delimiter = '~';
+  auto result = std::list<std::string>();
 
-  q = q.substr(this->m_Name.size(), q.size() - this->m_Name.size());
-  if (q.c_str()[0] == attrs_delimiter) {
-    q = q.substr(1, q.size() - 1);
-    if (this->m_Attr.find(q) == this->m_Attr.end()) {
-      return null_str;
-    }
-    return this->m_Attr[q];
-  }
-
-  const auto get_from_child = [&](auto pos) -> std::string {
-    const auto child = q.substr(0, pos);
-    if (this->m_Child.find(child) == this->m_Child.end()) {
-      return null_str;
-    }
-    return this->m_Child[child]->Query(q);
-  };
-  
-  // remove delimiter
-  q = q.substr(1);
-  auto pos = q.find(child_delimiter);
+  auto pos = str.find(attrs_delimiter);
   if (pos == std::string::npos) {
-    pos = q.find(attrs_delimiter);
-    if (pos == std::string::npos) {
-      return null_str;
-    }
+    return std::tuple(nil, result);
   }
-  return get_from_child(pos);
+
+  const auto name = str.substr(pos + 1, str.size() - pos);
+  str = str.substr(0, pos);
+
+  while ((pos = str.find(child_delimiter)) != std::string::npos) {
+    const auto token = str.substr(0, pos);
+    result.push_back(token);
+    str = str.substr(pos + 1, str.size() - pos);
+  }
+  if (!str.empty()) {
+    result.push_back(str);
+  }
+  return std::tuple(name, result);
+}
+
+std::string Attribute::Find(const std::string &attr, std::list<std::string> nodes) const {
+  constexpr auto nil = "";
+  if (nodes.empty()) {
+    return nil;
+  }
+
+  if (*nodes.begin() != this->m_Name) {
+    return nil;
+  }
+
+  nodes.pop_front();
+  if (!nodes.empty()) {
+    const std::string child = *nodes.begin();
+    if (this->m_Child.find(child) == this->m_Child.end()) {
+      return nil;
+    }
+    return this->m_Child.at(child)->Find(attr, nodes);
+  }
+
+  if (this->m_Attr.find(attr) == this->m_Attr.end()) {
+    return nil;
+  }
+  return this->m_Attr.at(attr);
 }
 
 AttrWeakPtr Attribute::AddChild(const AttrWeakPtr &parent, const std::string &s) {
-  const auto&[name, p] = parse(s);
+  const auto&[name, p] = parse_attr(s);
   const auto node = std::make_shared<Attribute>(parent, name, p);
   this->m_Child[name] = node;
   return node;
 }
 
-AttrWeakPtr Attribute::GetParent() const {
+AttrWeakPtr Attribute::GetParent() {
   return this->m_Parent;
 }
 
@@ -127,7 +139,8 @@ void attribute_parser(std::vector<std::string> ss, const std::vector<std::string
     if (s.empty()) {
       return;
     }
-    const auto result = top->Query("header." + s);
+    const auto&[attr, nodes] = parse_query("header." + s);
+    const auto result = top->Find(attr, nodes);
     if (result.empty()) {
       std::cout << "Not Found!" << std::endl;
       return;

@@ -45,13 +45,21 @@ TEST(attribute_parser, test_eq) {
   EXPECT_EQ(output, "Name1\nNot Found!\nHelloWorld\n");
 }
 
-TEST(parse, test_eq) {
-  EXPECT_EQ(parse("<tag1 name = \"Name1\" value = \"HelloWorld\">"),
+TEST(parse_attr, test_eq) {
+  EXPECT_EQ(parse_attr("<tag1 name = \"Name1\" value = \"HelloWorld\">"),
             std::make_tuple(
                 "tag1",
                 pair_map{
                     std::make_pair("name", "Name1"),
                     std::make_pair("value", "HelloWorld"),
                 }
+            ));
+}
+
+TEST(parse_query, test_eq) {
+  EXPECT_EQ(parse_query("tag1.tag2~name"),
+            std::make_tuple(
+                "name",
+                std::list<std::string>{"tag1", "tag2"}
             ));
 }

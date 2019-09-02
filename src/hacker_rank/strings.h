@@ -5,6 +5,7 @@
 #ifndef INC_1D1CPP_STRINGS_H
 #define INC_1D1CPP_STRINGS_H
 
+#include <list>
 #include <map>
 #include <memory>
 #include <string>
@@ -16,7 +17,8 @@ std::vector<int> parse_int(const std::string &str);
 void strings(const std::string &s1, const std::string &s2);
 
 using pair_map = std::map<std::string, std::string>;
-std::tuple<std::string, pair_map> parse(std::string str);
+std::tuple<std::string, pair_map> parse_attr(std::string str);
+std::tuple<std::string, std::list<std::string>> parse_query(std::string str);
 
 class Attribute;
 using AttrPtr = std::shared_ptr<Attribute>;
@@ -31,9 +33,9 @@ class Attribute {
   explicit Attribute() = delete;
   ~Attribute() = default;
 
-  std::string Query(std::string q);
+  std::string Find(const std::string &attr, std::list<std::string> nodes) const;
   AttrWeakPtr AddChild(const AttrWeakPtr &parent, const std::string &s);
-  AttrWeakPtr GetParent() const;
+  AttrWeakPtr GetParent();
 
  private:
   std::string m_Name;
