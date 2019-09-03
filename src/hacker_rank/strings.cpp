@@ -114,7 +114,7 @@ void attribute_parser(std::vector<std::string> ss, const std::vector<std::string
   }
 
   const auto top = std::make_shared<Attribute>("header", pair_map());
-  std::weak_ptr<Attribute> pick = top;
+  AttrWeakPtr pick = top;
   std::for_each(ss.begin(), ss.end(), [&](const std::string &s) {
     if (s.empty()) {
       return;

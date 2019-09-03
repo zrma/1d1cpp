@@ -33,7 +33,7 @@ class Attribute {
   explicit Attribute() = delete;
   ~Attribute() = default;
 
-  std::string Find(const std::string &attr, std::list<std::string> nodes) const;
+  [[nodiscard]] std::string Find(const std::string &attr, std::list<std::string> nodes) const;
   AttrWeakPtr AddChild(const AttrWeakPtr &parent, const std::string &s);
   AttrWeakPtr GetParent();
 
