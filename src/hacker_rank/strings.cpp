@@ -11,7 +11,7 @@ std::vector<int> parse_int(const std::string &str) {
   auto result = std::vector<int>();
   constexpr auto delimiter = ',';
   constexpr auto delimiter_length = sizeof(delimiter);
-  size_t start = 0;
+  auto start = 0;
 
   while (start < str.size()) {
     const auto pos = std::min(str.find(delimiter, start), str.size());
@@ -108,14 +108,14 @@ AttrWeakPtr Attribute::GetParent() {
   return this->m_Parent;
 }
 
-void attribute_parser(std::vector<std::string> ss, const std::vector<std::string> &query) {
+void attribute_parser(const std::vector<std::string> &ss, const std::vector<std::string> &query) {
   if (query.empty()) {
     return;
   }
 
   const auto top = std::make_shared<Attribute>("header", pair_map());
   AttrWeakPtr pick = top;
-  std::for_each(ss.begin(), ss.end(), [&](const std::string &s) {
+  std::for_each(ss.begin(), ss.end(), [&pick](const std::string &s) {
     if (s.empty()) {
       return;
     }
@@ -135,7 +135,7 @@ void attribute_parser(std::vector<std::string> ss, const std::vector<std::string
     pick = spt->AddChild(spt, s);
   });
 
-  std::for_each(query.begin(), query.end(), [=](const std::string &s) {
+  std::for_each(query.begin(), query.end(), [top](const std::string &s) {
     if (s.empty()) {
       return;
     }
