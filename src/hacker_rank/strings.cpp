@@ -78,34 +78,34 @@ std::string Attribute::Find(const std::string &attr, std::list<std::string> node
     return nil;
   }
 
-  if (*nodes.begin() != this->m_Name) {
+  if (*nodes.begin() != this->name_) {
     return nil;
   }
 
   nodes.pop_front();
   if (!nodes.empty()) {
     const std::string child = *nodes.begin();
-    if (this->m_Child.find(child) == this->m_Child.end()) {
+    if (this->child_.find(child) == this->child_.end()) {
       return nil;
     }
-    return this->m_Child.at(child)->Find(attr, nodes);
+    return this->child_.at(child)->Find(attr, nodes);
   }
 
-  if (this->m_Attr.find(attr) == this->m_Attr.end()) {
+  if (this->attr_.find(attr) == this->attr_.end()) {
     return nil;
   }
-  return this->m_Attr.at(attr);
+  return this->attr_.at(attr);
 }
 
 AttrWeakPtr Attribute::AddChild(const AttrWeakPtr &parent, const std::string &s) {
-  const auto&[name, p] = parse_attr(s);
-  const auto node = std::make_shared<Attribute>(parent, name, p);
-  this->m_Child[name] = node;
+  const auto&[name, attr] = parse_attr(s);
+  const auto node = std::make_shared<Attribute>(parent, name, attr);
+  this->child_[name] = node;
   return node;
 }
 
 AttrWeakPtr Attribute::GetParent() {
-  return this->m_Parent;
+  return this->parent_;
 }
 
 void attribute_parser(const std::vector<std::string> &ss, const std::vector<std::string> &query) {

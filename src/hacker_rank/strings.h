@@ -27,9 +27,9 @@ using AttrWeakPtr = std::weak_ptr<Attribute>;
 class Attribute {
  public:
   explicit Attribute(std::string name, pair_map attr)
-      : m_Name(std::move(name)), m_Attr(std::move(attr)) {}
+      : name_(std::move(name)), attr_(std::move(attr)) {}
   explicit Attribute(AttrWeakPtr parent, std::string name, pair_map attr)
-      : m_Parent(std::move(parent)), m_Name(std::move(name)), m_Attr(std::move(attr)) {}
+      : parent_(std::move(parent)), name_(std::move(name)), attr_(std::move(attr)) {}
   explicit Attribute() = delete;
   ~Attribute() = default;
 
@@ -38,12 +38,12 @@ class Attribute {
   AttrWeakPtr GetParent();
 
  private:
-  std::string m_Name;
-  pair_map m_Attr;
-  std::map<std::string, AttrPtr> m_Child;
-  AttrWeakPtr m_Parent;
+  std::string name_;
+  pair_map attr_;
+  std::map<std::string, AttrPtr> child_;
+  AttrWeakPtr parent_;
 };
 
-void attribute_parser(const std::vector<std::string>& ss, const std::vector<std::string> &query);
+void attribute_parser(const std::vector<std::string> &ss, const std::vector<std::string> &query);
 
 #endif //INC_1D1CPP_STRINGS_H
