@@ -26,3 +26,8 @@ std::shared_ptr<StudentClass> create_classes(
   return s;
 }
 
+int classes_and_objects(const std::vector<int> &v) {
+  StudentCalc sc(v);
+  return sc.get_total_score();
+}
+

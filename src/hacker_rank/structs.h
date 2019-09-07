@@ -6,8 +6,10 @@
 #define INC_1D1CPP_SRC_HACKER_RANK_STRUCTS_H_
 
 #include <memory>
+#include <numeric>
 #include <utility>
 #include <sstream>
+#include <vector>
 
 struct StudentStruct {
   StudentStruct(const int &age,
@@ -82,5 +84,21 @@ std::shared_ptr<StudentClass> create_classes(
     const std::string &last_name,
     const int &standard
 );
+
+class StudentCalc {
+ public:
+  explicit StudentCalc(const std::vector<int> &v) {
+    this->total_score = std::accumulate(v.begin(), v.end(), 0);
+  }
+
+  int get_total_score() const {
+    return this->total_score;
+  }
+
+ private:
+  int total_score = 0;
+};
+
+int classes_and_objects(const std::vector<int> &v);
 
 #endif //INC_1D1CPP_SRC_HACKER_RANK_STRUCTS_H_

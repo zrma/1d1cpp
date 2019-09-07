@@ -5,6 +5,8 @@
 #include "gtest/gtest.h"
 
 #include "../../src/hacker_rank/structs.h"
+#include <algorithm>
+#include <numeric>
 
 // https://www.hackerrank.com/challenges/c-tutorial-struct/problem
 TEST(create_structs, test_eq) {
@@ -33,4 +35,16 @@ TEST(create_classes, test_eq) {
   EXPECT_EQ(s1->get_last_name(), s2->get_last_name());
   EXPECT_EQ(s1->get_standard(), s2->get_standard());
   EXPECT_EQ(s1->to_string(), s2->to_string());
+}
+
+// https://www.hackerrank.com/challenges/classes-objects/problem
+TEST(classes_and_objects, test_eq) {
+  std::vector<std::vector<int>> arr = {
+      std::vector<int>{30, 40, 45, 10, 10},
+      std::vector<int>{40, 40, 40, 10, 10},
+      std::vector<int>{50, 20, 30, 10, 10},
+  };
+  std::for_each(arr.begin(), arr.end(), [](const std::vector<int> &v) {
+    EXPECT_EQ(classes_and_objects(v), std::accumulate(v.begin(), v.end(), 0));
+  });
 }
