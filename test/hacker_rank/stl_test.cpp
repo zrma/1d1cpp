@@ -49,3 +49,32 @@ TEST(erase, test_eq) {
     EXPECT_EQ(actual, expected);
   }
 }
+
+// https://www.hackerrank.com/challenges/cpp-lower-bound/problem
+TEST(lower_bound_stl, test_eq) {
+  const auto v = std::vector<int>{1, 1, 2, 2, 6, 9, 9, 15};
+  {
+    testing::internal::CaptureStdout();
+    lower_bound_stl(v, 1);
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "Yes 1\n");
+  }
+  {
+    testing::internal::CaptureStdout();
+    lower_bound_stl(v, 4);
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "No 5\n");
+  }
+  {
+    testing::internal::CaptureStdout();
+    lower_bound_stl(v, 9);
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "Yes 6\n");
+  }
+  {
+    testing::internal::CaptureStdout();
+    lower_bound_stl(v, 15);
+    auto output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output, "Yes 8\n");
+  }
+}
