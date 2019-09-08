@@ -10,5 +10,7 @@ add_executable(Google_Tests_run
         hacker_rank/structs_test.cpp
         ../src/hacker_rank/introduction.cpp
         ../src/hacker_rank/strings.cpp
-        ../src/hacker_rank/structs.cpp)
+        ../src/hacker_rank/structs.cpp
+        ../src/hacker_rank/stl.cpp
+        hacker_rank/stl_test.cpp)
 target_link_libraries(Google_Tests_run gtest gtest_main)
