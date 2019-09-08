@@ -78,3 +78,21 @@ TEST(lower_bound_stl, test_eq) {
     EXPECT_EQ(output, "Yes 8\n");
   }
 }
+
+// https://www.hackerrank.com/challenges/cpp-lower-bound/problem
+TEST(sets_stl, test_eq) {
+  const auto v = std::vector<std::tuple<int, int>>{
+      std::make_tuple<int, int>(1, 9),
+      std::make_tuple<int, int>(1, 6),
+      std::make_tuple<int, int>(1, 10),
+      std::make_tuple<int, int>(1, 4),
+      std::make_tuple<int, int>(3, 6),
+      std::make_tuple<int, int>(3, 14),
+      std::make_tuple<int, int>(2, 6),
+      std::make_tuple<int, int>(3, 6),
+  };
+  testing::internal::CaptureStdout();
+  sets_stl(v);
+  auto output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(output, "Yes\nNo\nNo\n");
+}

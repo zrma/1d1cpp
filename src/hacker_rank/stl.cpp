@@ -5,6 +5,8 @@
 #include "stl.h"
 #include <algorithm>
 #include <iostream>
+#include <set>
+#include <tuple>
 
 void sort(std::vector<int> &v) {
   std::sort(v.begin(), v.end());
@@ -24,5 +26,27 @@ void lower_bound_stl(const std::vector<int> &v, int num) {
     return;
   }
   std::cout << "No " << low_idx + 1 << std::endl;
+}
+void sets_stl(const std::vector<std::tuple<int, int>> &v) {
+  auto s = std::set<int>();
+  std::for_each(v.begin(), v.end(), [&s](const std::tuple<int, int> &t) {
+    const auto&[op_code, op_land] = t;
+    switch (op_code) {
+      case 1: {
+        s.insert(op_land);
+        break;
+      }
+      case 2: {
+        s.erase(op_land);
+        break;
+      }
+      default:
+        if (s.find(op_land) == s.end()) {
+          std::cout << "No" << std::endl;
+          return;
+        }
+        std::cout << "Yes" << std::endl;
+    }
+  });
 }
 
