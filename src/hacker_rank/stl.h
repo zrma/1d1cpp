@@ -7,6 +7,7 @@
 
 #include <vector>
 
-void sort(std::vector<int>& v);
+void sort(std::vector<int> &v);
+void erase(std::vector<int> &v, int pos, int from, int to);
 
 #endif //INC_1D1CPP_SRC_HACKER_RANK_STL_H_
