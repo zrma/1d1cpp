@@ -2,6 +2,8 @@ language: cpp
 cache: ccache
 compiler: gcc
 
+dist: trusty 
+
 os: linux
 addons:
   apt:
@@ -9,9 +11,13 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
+  sonarcloud: 
+    organization: $ORGANIZATION 
+    token: $SONAR_TOKEN 
 
 before_install:
   - chmod +x ./test.sh
+  - pip install --user cpp-coveralls
 
 before_script:
   - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev valgrind
@@ -20,3 +26,13 @@ script:
   - export CC=gcc-7
   - export CXX=g++-7
   - ./test.sh
+
+after_success:
+  - coveralls --root . -E "test/*"
+  - build-wrapper-linux-x86-64 --out-dir bw-output make clean all
+  - sonar-scanner
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
