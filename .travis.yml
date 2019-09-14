@@ -11,13 +11,13 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
+      - lcov
   sonarcloud: 
     organization: $ORGANIZATION 
     token: $SONAR_TOKEN 
 
 before_install:
   - chmod +x ./test.sh
-  - pip install --user cpp-coveralls
 
 before_script:
   - sudo apt-get install libboost-thread-dev libboost-system-dev libboost-test-dev valgrind
@@ -28,9 +28,14 @@ script:
   - ./test.sh
 
 after_success:
-  - coveralls --root . -E "test/*"
   - build-wrapper-linux-x86-64 --out-dir bw-output make clean all
   - sonar-scanner
+  # Create lcov report
+  - lcov --capture --directory . --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
+  - lcov --list coverage.info # debug info
+  # Uploading report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
 cache:
   directories:
