@@ -1,4 +1,6 @@
 #!/bin/sh
+export CC=gcc-7
+export CXX=g++-7
 cmake --version
 cmake CMakeLists.txt
 cmake -Dtest=ON .
