@@ -1,0 +1,29 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install g++-7 libboost-thread-dev libboost-system-dev libboost-test-dev valgrind
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 100
+    - name: test
+      run: |
+        ./test.sh
+#    - uses: danielealbano/lcov-action@v3
+#      with:
+#        gcov_tool: /usr/bin/gcov-7
+#    - name: report
+#      run: |
+#        bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"

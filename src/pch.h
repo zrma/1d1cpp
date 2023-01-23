@@ -8,6 +8,7 @@
 #include <random>
 #include <iostream>
 
+#include <array>
 #include <list>
 #include <deque>
 #include <vector>
