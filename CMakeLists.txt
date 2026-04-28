@@ -1,13 +1,19 @@
-cmake_minimum_required(VERSION 3.9)
-project(1d1cpp)
+cmake_minimum_required(VERSION 3.16...4.3)
+project(1d1cpp LANGUAGES CXX)
 
-if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
-else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-endif (MSVC)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+option(ENABLE_COVERAGE "Build with coverage instrumentation" OFF)
+
+if (ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
+    add_compile_options(--coverage)
+    add_link_options(--coverage)
+endif ()
+
+enable_testing()
 
 add_subdirectory(src)
 add_subdirectory(test)

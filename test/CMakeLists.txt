@@ -1,7 +1,4 @@
-project(test)
-
 add_subdirectory(lib)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_executable(Google_Tests_run
         main_test.cpp
@@ -13,4 +10,9 @@ add_executable(Google_Tests_run
         ../src/hacker_rank/structs.cpp
         ../src/hacker_rank/stl.cpp
         hacker_rank/stl_test.cpp)
-target_link_libraries(Google_Tests_run gtest gtest_main)
+
+target_compile_features(Google_Tests_run PRIVATE cxx_std_17)
+target_link_libraries(Google_Tests_run PRIVATE gtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(Google_Tests_run)
